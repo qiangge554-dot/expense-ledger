@@ -23,17 +23,21 @@
 
 ## 下载使用
 
-当前版本 **v0.4.0**：
+当前版本 **v0.4.1**：
 
-- 安装包：`ExpenseLedger_0.4.0_x64-setup.exe`（2.34 MiB，NSIS 安装器，x64）
-- 下载地址：https://github.com/qiangge554-dot/expense-ledger/releases/download/v0.4.0/ExpenseLedger_0.4.0_x64-setup.exe
+- 安装包：`ExpenseLedger_0.4.1_x64-setup.exe`（2.95 MiB，NSIS 安装器，x64）
+- 下载地址：https://github.com/qiangge554-dot/expense-ledger/releases/download/v0.4.1/ExpenseLedger_0.4.1_x64-setup.exe
 - 全部版本：https://github.com/qiangge554-dot/expense-ledger/releases
 
 SHA-256（可用于校验）：
 
 ```
-4E496366D8066EE52AEC82CE58C3D7DCBCFA8A1A4B2DBC13340C14DAD99AE299
+7CD5722328FEB13783297C4CAE8CBC1FF4933CBB892BC2637B9075514C7EE4DB
 ```
+
+v0.4.1 起内置**应用内自动更新**：启动时静默检查，发现新版本在右下角弹出提示，一键下载安装。
+更新包用 minisign 签名校验，更新通道见 `tauri.conf.json` 的 `plugins.updater.endpoints`。
+v0.4.0 及更早版本需手动安装一次 0.4.1，之后即可自动升级。
 
 无需管理员权限，按当前用户安装即可。首次启动若被 SmartScreen 拦截，选择「仍要运行」（尚未购买代码签名证书）。
 
