@@ -23,9 +23,21 @@
 
 ## 下载使用
 
-到 Releases 下载 `报销台账_x.x.x_x64-setup.exe` 安装即可，无需管理员权限。
+当前版本 **v0.4.0**：
 
-免安装的便携版也在 Releases 中（解压后需与 `WebView2Loader.dll` 放在同一目录）。
+- 安装包：`ExpenseLedger_0.4.0_x64-setup.exe`（2.34 MiB，NSIS 安装器，x64）
+- 下载地址：https://github.com/qiangge554-dot/expense-ledger/releases/download/v0.4.0/ExpenseLedger_0.4.0_x64-setup.exe
+- 全部版本：https://github.com/qiangge554-dot/expense-ledger/releases
+
+SHA-256（可用于校验）：
+
+```
+4E496366D8066EE52AEC82CE58C3D7DCBCFA8A1A4B2DBC13340C14DAD99AE299
+```
+
+无需管理员权限，按当前用户安装即可。首次启动若被 SmartScreen 拦截，选择「仍要运行」（尚未购买代码签名证书）。
+
+> 说明：GitHub 会剥离 Release 附件名中的中文字符，所以发布文件名使用 ASCII 版本。
 
 ## 从源码构建
 
