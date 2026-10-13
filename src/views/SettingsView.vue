@@ -18,9 +18,57 @@ import { requireVault } from "@/lib/vault";
 import { fmtMoney } from "@/lib/format";
 import { EXPENSE_CATEGORIES } from "@/constants/categories";
 import type { Ledger } from "@/types";
+import { getVersion } from "@tauri-apps/api/app";
+import {
+  errorText as upError,
+  info as upInfo,
+  percent as upPercent,
+  phase as upPhase,
+  runCheck,
+  runInstall,
+} from "@/lib/updater";
 
 const store = useLedgerStore();
 const msg = ref("");
+const appVersion = ref("0.4.1");
+
+getVersion()
+  .then((v) => (appVersion.value = v))
+  .catch(() => {});
+
+const upBusy = computed(
+  () =>
+    upPhase.value === "checking" ||
+    upPhase.value === "downloading" ||
+    upPhase.value === "installing",
+);
+
+const upStatusText = computed(() => {
+  switch (upPhase.value) {
+    case "checking":
+      return "正在检查…";
+    case "available":
+      return `有新版本 ${upInfo.value?.version ?? ""}`;
+    case "downloading":
+      return upPercent.value === null ? "下载中…" : `下载中 ${upPercent.value}%`;
+    case "installing":
+      return "正在安装，完成后自动重启";
+    case "uptodate":
+      return "已是最新版本";
+    case "error":
+      return `检查失败：${upError.value}`;
+    default:
+      return "";
+  }
+});
+
+async function checkUpdate() {
+  await runCheck();
+}
+
+async function doInstall() {
+  await runInstall();
+}
 
 // 账套
 const newName = ref("");
@@ -362,11 +410,48 @@ onMounted(async () => {
       <p class="text-xs text-ink-300 mt-2">所有数据均存储于本机 AppData，备份文件请自行妥善保管。</p>
     </div>
 
+    <!-- 版本与更新 -->
+    <div class="bg-card rounded-xl border border-line shadow-card p-5">
+      <h2 class="font-medium text-ink mb-3">版本与更新</h2>
+      <div class="flex items-center gap-3">
+        <button
+          @click="checkUpdate"
+          :disabled="upPhase === 'checking' || upPhase === 'downloading' || upPhase === 'installing'"
+          class="rounded-lg bg-deep text-white text-sm px-3 py-1.5 hover:bg-deep-600 disabled:opacity-60"
+        >
+          {{ upBusy ? "处理中…" : "检查更新" }}
+        </button>
+        <button
+          v-if="upPhase === 'available'"
+          @click="doInstall"
+          class="rounded-lg border border-deep text-deep text-sm px-3 py-1.5 hover:bg-deep/5"
+        >
+          安装 {{ upInfo?.version }}
+        </button>
+        <span class="text-sm text-ink-400">{{ upStatusText }}</span>
+      </div>
+      <div
+        v-if="upPhase === 'downloading'"
+        class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-fog-300"
+      >
+        <div
+          class="h-full rounded-full bg-deep-500 transition-all"
+          :style="{ width: (upPercent ?? 0) + '%' }"
+        />
+      </div>
+      <p
+        v-if="upPhase === 'available' && upInfo?.notes"
+        class="mt-3 max-h-32 overflow-auto whitespace-pre-line rounded-lg bg-card-alt px-3 py-2 text-xs leading-relaxed text-ink-400"
+      >
+        {{ upInfo.notes }}
+      </p>
+    </div>
+
     <!-- 关于 -->
     <div class="bg-card rounded-xl border border-line shadow-card p-5">
       <h2 class="font-medium text-ink mb-2">关于</h2>
       <p class="text-sm text-ink-400 leading-relaxed">
-        报销台账 v0.4.0<br />
+        报销台账 v{{ appVersion }}<br />
         数据仅存于本机，不上传任何云端；支持 Excel / CSV 导出与打印 PDF。
       </p>
     </div>

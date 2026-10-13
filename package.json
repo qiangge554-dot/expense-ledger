@@ -1,7 +1,7 @@
 {
   "name": "expense-ledger",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "description": "本地优先的报销台账桌面应用（Tauri 2 + Vue 3 + Tailwind）",
   "scripts": {
@@ -13,6 +13,7 @@
   "dependencies": {
     "@tauri-apps/api": "^2.1.1",
     "@tauri-apps/plugin-dialog": "^2.0.1",
+    "@tauri-apps/plugin-updater": "^2.13.3",
     "pinia": "^2.2.6",
     "vue": "^3.5.13"
   },

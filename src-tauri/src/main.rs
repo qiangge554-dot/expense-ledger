@@ -7,6 +7,7 @@ mod commands;
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .setup(|app| {
             // 首次启动初始化本地 SQLite（含默认台账、凭证表、设置表）
             db::init_db(app.handle())?;
