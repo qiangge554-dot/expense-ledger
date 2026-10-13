@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="256" height="256">
+  <!-- 报销台账 · 标志（方案 A「账本凭证」） -->
+  <!-- 语义：深空蓝底板（沉稳可信）+ 白色凭证单据（台账/报销单）
+       + 青蓝抬头栏（主色强调）+ 绿色核对勾（已核销/放心） -->
+  <rect x="24" y="24" width="976" height="976" rx="237" fill="#123A5E"/>
+  <rect x="268" y="190" width="488" height="644" rx="56" fill="#FFFFFF"/>
+  <rect x="351" y="288" width="321" height="49" rx="24.5" fill="#4E9BC0"/>
+  <rect x="351" y="400" width="237" height="35" rx="17.5" fill="#B9C6D6"/>
+  <rect x="351" y="484" width="279" height="35" rx="17.5" fill="#B9C6D6"/>
+  <rect x="351" y="568" width="181" height="35" rx="17.5" fill="#DCE4ED"/>
+  <circle cx="637" cy="736" r="105" fill="#2E8B70"/>
+  <path d="M595 736 L630 771 L679 701" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

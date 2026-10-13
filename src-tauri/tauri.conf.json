@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "报销台账",
+  "version": "0.4.0",
+  "identifier": "com.expenseledger.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "报销台账",
+        "width": 1100,
+        "height": 740,
+        "minWidth": 920,
+        "minHeight": 620,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "publisher": "lin",
+    "copyright": "Copyright © 2026 lin",
+    "category": "Finance",
+    "shortDescription": "本地存储的报销台账，支持凭证附件与 Excel 导入导出",
+    "longDescription": "报销台账是一款完全本地运行的桌面记账工具：数据只存本机，不上传云端。支持多账套管理、凭证图片附件、报销状态跟踪（待报销 / 已提交 / 已回款）、分类预算与超支预警、Excel 与 CSV 导入导出、打印或另存 PDF，并可设置口令锁与本地备份恢复。",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "languages": ["English"],
+        "displayLanguageSelector": false,
+        "installMode": "currentUser"
+      }
+    }
+  }
+}

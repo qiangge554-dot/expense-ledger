@@ -1,0 +1,47 @@
+[package]
+name = "expense-ledger"
+version = "0.4.0"
+description = "本地优先的报销台账桌面应用"
+authors = ["you"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2" }
+# 同时强制 build-dependencies 上下文的 indexmap 带 std（tauri-build 经 schemars
+# 引入 indexmap 且 default-features=false），否则正常依赖上下文的 indexmap
+# 不带 std，导致 schemars 的 IndexMap<K,V> 两参数写法编译失败。
+indexmap = { version = "1", features = ["std"] }
+
+[dependencies]
+tauri = { version = "2" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+aes-gcm = "0.10"
+argon2 = "0.5"
+rand = "0.8"
+dirs = "5"
+tauri-plugin-dialog = "2"
+rust_xlsxwriter = "0.8"
+# 读取 xlsx（Excel 导入模板解析）
+calamine = "0.26"
+base64 = "0.22"
+# 强制 indexmap 带 std feature：schemars（Tauri 命令 schema 依赖）用到
+# IndexMap<K,V> 的两参数写法，需要 std 提供 S 的默认值；否则与
+# toml 等以 default-features=false 引入 indexmap 的依赖冲突导致编译失败。
+indexmap = { version = "1", features = ["std"] }
+
+# Tauri 官方模板标配：custom-protocol 开启后 generate_context! 才会把
+# frontendDist 前端资源嵌入二进制（窗口走 tauri://localhost 协议），
+# 否则即使 cargo build --release 也按 devUrl 连开发服务器（localhost 拒绝连接）。
+# `npm run tauri build` 会自动传此 feature；手撸 cargo 命令时须显式加：
+#   cargo build --release --features custom-protocol
+[features]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true
